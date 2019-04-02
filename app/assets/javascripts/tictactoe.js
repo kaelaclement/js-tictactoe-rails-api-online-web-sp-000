@@ -19,6 +19,9 @@ function setMessage(message) {
 };
 
 function checkWinner() {
+  // select each possible win row
+
+  // but not like this
   const $topRow = $("td[data-y='0']");
   // const $midRow = $("td[data-y='1']");
   // const $botRow = $("td[data-y='2']");
@@ -26,19 +29,10 @@ function checkWinner() {
   // const $midCol = $("td[data-x='1']");
   // const $rightCol = $("td[data-x='2']");
   // const $majorDiag = $("td[data-x='0']");
-  $topRow.each(function(e) {
-    let winner;
-    let winningPlayer;
-    if (e.innerHTML == 'X') {
-      winner = true;
-      winningPlayer = 'X';
-    } else if (e.innerHTML == 'O') {
-      winner = true;
-      winningPlayer = 'O';
-    } else {
-      winner = false;
-    };
-  });
-  debugger
-  return winner
+
+  // check for a winning pattern
+
+  // return if someone won
+
+  // use setMessage to return who won
 };
