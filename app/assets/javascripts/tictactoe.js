@@ -1,7 +1,7 @@
-// Code your JavaScript / jQuery solution here
+// decide who the current player is
 function player() {
   let player;
-  if (turn % 2 == 1) {
+  if (turn % 2 === 1) {
     player = 'O';
   } else {
     player = 'X';
@@ -9,15 +9,18 @@ function player() {
   return player;
 };
 
+// put current player's token on the board
 function updateState(el) {
   const token = player();
   el.innerHTML = token;
 };
 
+// display a message under the board
 function setMessage(message) {
   $("#message").text(message);
 };
 
+// check if there is a winner and alert if there is
 function checkWinner() {
   const winningCombinations = [
   [0, 1, 2], // top –––
@@ -29,22 +32,66 @@ function checkWinner() {
   [0, 4, 8], // \ diagonal
   [2, 4, 6] // / diagonal
   ]
-  let gameState = [];
 
+  // convert current game into an array
+  const gameState = [];
   $("td").each(function (i, el) {
     gameState.push(el.innerText);
   });
 
-  // check for a winning pattern
-
-  winningCombinations.forEach(function (winArr) {
-    if (gameState[winArr[0]] === 'X' || gameState[winArr[0]] === 'O') {
-      if (gameState[winArr[0]] === gameState[winArr[1]] && gameState[winArr[1]] === gameState[winArr[2]]) {
-        setMessage('Player ' + gameState[winArr[0]] + ' Won!');
-        return true;
-      }
-    } else {
-      return false;
-    }
+  // check if any winning combinations have the same character in each cell
+  const sameValue = winningCombinations.filter(function (winArr) {
+    return gameState[winArr[0]] === gameState[winArr[1]] && gameState[winArr[1]] === gameState[winArr[2]];
   });
+
+  // check that it's a player token in those cells
+  const winRow = sameValue.find(function (winArr) {
+    return gameState[winArr[0]] === 'X' || gameState[winArr[0]] === 'O';
+  });
+
+  // return whether or not there is a winner
+  if (winRow) {
+    setMessage(`Player ${gameState[winRow[0]]} Won!`)
+    return true;
+  } else {
+    return false;
+  }
 };
+
+let gameOver;
+// take a turn
+function doTurn(el) {
+  if (el.innerHTML === "") {
+    updateState(el);
+
+    const gameState = [];
+    $("td").each(function (i, el) {
+      gameState.push(el.innerText);
+    });
+  
+    if (checkWinner()) {
+      $("td").each(function (i, el) {
+        el.innerText = "";
+      });
+      turn = 0;
+    } else if (gameState.every(token => token === 'X' || token === 'O')) {
+      setMessage('Tie game.');
+      $("td").each(function (i, el) {
+        el.innerText = "";
+      });
+      turn = 0;
+    } else {
+      turn +=1;
+    };
+  }
+};
+
+// put turn taking on the board
+function attachListeners() {
+   $("td").click(function() {
+     doTurn(this);
+   });
+};
+
+attachListeners();
+
