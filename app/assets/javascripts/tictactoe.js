@@ -1,3 +1,13 @@
+// ability to save game
+function saveGame() {
+  const gameState = [];
+  $("td").each(function (i, el) {
+    gameState.push(el.innerText);
+  });
+
+  $.post()
+};
+
 // decide who the current player is
 function player() {
   let player;
