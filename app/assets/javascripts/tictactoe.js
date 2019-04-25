@@ -1,13 +1,3 @@
-// ability to save game
-function saveGame() {
-  const gameState = [];
-  $("td").each(function (i, el) {
-    gameState.push(el.innerText);
-  });
-
-  $.post()
-};
-
 // decide who the current player is
 function player() {
   let player;
@@ -96,12 +86,37 @@ function doTurn(el) {
   }
 };
 
-// put turn taking on the board
+// get the current state of the board
+function currentBoard() {
+  const gameState = [];
+  $("td").each(function (i, el) {
+    gameState.push(el.innerText);
+  });
+  return gameState;
+};
+
+// attach event listeners for gameplay
 function attachListeners() {
    $("td").click(function() {
      doTurn(this);
    });
+
+  $("button#save").click(function (e) {
+    e.preventDefault;
+    $.post("/games", {state: currentBoard()})
+  });
+
+  $("button#clear").click(function (e) {
+    e.preventDefault;
+    $("td").each(function (i, el) {
+      el.innerText = "";
+    });
+  });
+
 };
 
-attachListeners();
+$(document).ready(
+  attachListeners()
+);
+
 
