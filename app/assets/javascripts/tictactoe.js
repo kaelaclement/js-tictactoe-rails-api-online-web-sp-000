@@ -115,6 +115,7 @@ function saveGame() {
 };
 
 function previousGames() {
+  $('#games').empty();
   $.get("/games", (savedGames) => {
     if (savedGames.data.length) {
       savedGames.data.forEach(makeGameButton);
