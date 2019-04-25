@@ -70,9 +70,11 @@ function doTurn(el) {
     });
   
     if (checkWinner()) {
+      saveGame();
       resetBoard();
     } else if (gameState.every(token => token === 'X' || token === 'O')) {
       setMessage('Tie game.');
+      saveGame();
       resetBoard();
     } else {
       turn +=1;
@@ -108,7 +110,6 @@ function saveGame() {
     $.post("/games", { state: currentBoard()}, function(game) {
       currentGame = game.data.id;
       $('#games').append('<button id="gameid-${game.data.id}">${game.data.id}</button><br>');
-      //need a way to load the game selected
     });
   }
 };
@@ -132,6 +133,7 @@ function attachListeners() {
     e.preventDefault;
     resetBoard();
     setMessage('Game cleared.');
+    currentGame = 0;
   });
 
   $("button#previous").click(function (e) {
