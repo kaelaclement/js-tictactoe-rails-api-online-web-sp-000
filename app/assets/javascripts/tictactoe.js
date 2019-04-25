@@ -42,7 +42,7 @@ function checkWinner() {
   [0, 4, 8], // \ diagonal
   [2, 4, 6] // / diagonal
   ]
-
+  
   // convert current game into an array
   const gameState = [];
   $("td").each(function (i, el) {
