@@ -114,6 +114,7 @@ function attachListeners() {
     $("td").each(function (i, el) {
       el.innerText = "";
     });
+    setMessage('Game cleared.');
   });
 
   $("button#previous").click(function (e) {
