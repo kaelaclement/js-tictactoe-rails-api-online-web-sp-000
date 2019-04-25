@@ -101,6 +101,9 @@ function attachListeners() {
      doTurn(this);
    });
 
+   
+  // save button functionality currently saves as a new game every time
+
   $("button#save").click(function (e) {
     e.preventDefault;
     $.post("/games", {state: currentBoard()})
@@ -112,6 +115,11 @@ function attachListeners() {
       el.innerText = "";
     });
   });
+
+  $("button#previous").click(function (e) {
+    e.preventDefault;
+    // get the previous game and display it
+  })
 
 };
 
