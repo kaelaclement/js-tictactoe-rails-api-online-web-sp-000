@@ -94,6 +94,25 @@ function currentBoard() {
   return gameState;
 };
 
+// temp value for game id while we test if it exists or not
+let currentGame = 0;
+// update an existing saved game, or save a new game
+function saveGame() {
+  if (currentGame != 0) {
+    $.ajax({
+      type: 'PATCH',
+      url: '/games/' + currentGame,
+      data: { state: currentBoard() },
+    });
+  } else {
+    $.post("/games", { state: currentBoard()}, function(game) {
+      currentGame = game.data.id;
+      $('#games').append('<button id="gameid-${game.data.id}">${game.data.id}</button><br>');
+      //need a way to load the game selected
+    });
+  }
+};
+
 // attach event listeners for gameplay
 function attachListeners() {
   $("td").click(function() {
@@ -106,7 +125,7 @@ function attachListeners() {
 
   $("button#save").click(function (e) {
     e.preventDefault;
-    $.post("/games", {state: currentBoard()})
+    saveGame();
   });
 
   $("button#clear").click(function (e) {
