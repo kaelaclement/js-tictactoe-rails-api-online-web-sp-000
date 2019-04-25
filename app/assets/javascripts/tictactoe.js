@@ -70,21 +70,20 @@ function doTurn(el) {
     });
   
     if (checkWinner()) {
-      $("td").each(function (i, el) {
-        el.innerText = "";
-      });
-      turn = 0;
+      resetBoard();
     } else if (gameState.every(token => token === 'X' || token === 'O')) {
       setMessage('Tie game.');
-      $("td").each(function (i, el) {
-        el.innerText = "";
-      });
-      turn = 0;
+      resetBoard();
     } else {
       turn +=1;
     };
-  }
+  };
 };
+
+function resetBoard() {
+  $('td').empty();
+  turn = 0;
+}
 
 // get the current state of the board
 function currentBoard() {
@@ -97,10 +96,11 @@ function currentBoard() {
 
 // attach event listeners for gameplay
 function attachListeners() {
-   $("td").click(function() {
-     doTurn(this);
-   });
-
+  $("td").click(function() {
+    if (!checkWinner()) {
+      doTurn(this);
+    }
+  });
    
   // save button functionality currently saves as a new game every time
 
@@ -111,9 +111,7 @@ function attachListeners() {
 
   $("button#clear").click(function (e) {
     e.preventDefault;
-    $("td").each(function (i, el) {
-      el.innerText = "";
-    });
+    resetBoard();
     setMessage('Game cleared.');
   });
 
