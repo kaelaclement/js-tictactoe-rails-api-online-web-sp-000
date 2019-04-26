@@ -114,6 +114,25 @@ function saveGame() {
   }
 };
 
+function previousGames() {
+  $('#games').empty();
+  $.get("/games", (savedGames) => {
+    if (savedGames.data.length) {
+      savedGames.data.forEach(makeGameButton);
+    }
+  });
+}
+
+function makeGameButton(game) {
+  $('#games').append('<button id="gameid-${game.id}">${game.id}</button><br>');
+  //$('#gameid-${game.id}').on('click', () => reloadGame(game.id));
+}
+
+//reload game....somehow
+function reloadGame(gameID) {
+
+}
+
 // attach event listeners for gameplay
 function attachListeners() {
   $("td").click(function() {
@@ -121,8 +140,6 @@ function attachListeners() {
       doTurn(this);
     }
   });
-   
-  // save button functionality currently saves as a new game every time
 
   $("button#save").click(function (e) {
     e.preventDefault;
@@ -138,7 +155,8 @@ function attachListeners() {
 
   $("button#previous").click(function (e) {
     e.preventDefault;
-    // get the previous game and display it
+    // get the previous games and display them
+    previousGames();
   })
 
 };
