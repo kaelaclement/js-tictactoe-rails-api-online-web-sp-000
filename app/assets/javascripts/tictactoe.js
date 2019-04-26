@@ -96,7 +96,7 @@ function currentBoard() {
   return gameState;
 };
 
-// temp value for game id while we test if it exists or not
+// initial value for game id while we test if it exists or not
 let currentGame = 0;
 // update an existing saved game, or save a new game
 function saveGame() {
