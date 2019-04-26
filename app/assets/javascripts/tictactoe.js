@@ -141,6 +141,7 @@ function reloadGame(gameID) {
     $('td[data-x="0"][data-y="2"]').text(savedGame[6]);
     $('td[data-x="1"][data-y="2"]').text(savedGame[7]);
     $('td[data-x="2"][data-y="2"]').text(savedGame[8]);
+    currentGame = gameID;
   })
 };
 
