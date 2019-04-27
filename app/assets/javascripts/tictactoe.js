@@ -125,12 +125,14 @@ function previousGames() {
 
 function makeGameButton(game) {
   $('#games').append('<button id="gameid-${game.id}">${game.id}</button><br>');
-  //$('#gameid-${game.id}').on('click', () => reloadGame(game.id));
+  $("#gameid-" + game.id).on('click', () => reloadGame(game.id));
 }
 
 //reload game....somehow
 function reloadGame(gameID) {
-
+  $.get("/games/${gameID}", (savedGame) => {
+    currentGame = savedGame.id;
+  });
 }
 
 // attach event listeners for gameplay
