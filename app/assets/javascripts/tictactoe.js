@@ -96,7 +96,7 @@ function currentBoard() {
   return gameState;
 };
 
-// temp value for game id while we test if it exists or not
+// initial value for game id while we test if it exists or not
 let currentGame = 0;
 // update an existing saved game, or save a new game
 function saveGame() {
@@ -109,7 +109,7 @@ function saveGame() {
   } else {
     $.post("/games", { state: currentBoard()}, function(game) {
       currentGame = game.data.id;
-      $('#games').append('<button id="gameid-${game.data.id}">${game.data.id}</button><br>');
+      $('#games').append(`<button id="gameid-${game.data.id}">${game.data.id}</button><br>`);
     });
   }
 };
@@ -130,10 +130,20 @@ function makeGameButton(game) {
 
 //reload game....somehow
 function reloadGame(gameID) {
-  $.get("/games/${gameID}", (savedGame) => {
-    currentGame = savedGame.id;
-  });
-}
+  $.get(`/games/${gameID}`, function (data) {
+    let savedGame = data["data"]["attributes"]["state"]
+    $('td[data-x="0"][data-y="0"]').text(savedGame[0]);
+    $('td[data-x="1"][data-y="0"]').text(savedGame[1]);
+    $('td[data-x="2"][data-y="0"]').text(savedGame[2]);
+    $('td[data-x="0"][data-y="1"]').text(savedGame[3]);
+    $('td[data-x="1"][data-y="1"]').text(savedGame[4]);
+    $('td[data-x="2"][data-y="2"]').text(savedGame[5]);
+    $('td[data-x="0"][data-y="2"]').text(savedGame[6]);
+    $('td[data-x="1"][data-y="2"]').text(savedGame[7]);
+    $('td[data-x="2"][data-y="2"]').text(savedGame[8]);
+    currentGame = gameID;
+  })
+};
 
 // attach event listeners for gameplay
 function attachListeners() {
