@@ -1,3 +1,7 @@
+function resetBoard() {
+  $('td').empty();
+  turn = 0;
+}
 // decide who the current player is
 function player() {
   let player;
@@ -82,10 +86,7 @@ function doTurn(el) {
   };
 };
 
-function resetBoard() {
-  $('td').empty();
-  turn = 0;
-}
+
 
 // get the current state of the board
 function currentBoard() {
@@ -142,6 +143,7 @@ function reloadGame(gameID) {
     $('td[data-x="1"][data-y="2"]').text(savedGame[7]);
     $('td[data-x="2"][data-y="2"]').text(savedGame[8]);
     currentGame = gameID;
+    turn = state.join('').length;
   })
 };
 
