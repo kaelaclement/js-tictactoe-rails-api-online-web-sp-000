@@ -1,3 +1,7 @@
+function resetBoard() {
+  $('td').empty();
+  turn = 0;
+}
 // decide who the current player is
 function player() {
   let player;
@@ -82,10 +86,7 @@ function doTurn(el) {
   };
 };
 
-function resetBoard() {
-  $('td').empty();
-  turn = 0;
-}
+
 
 // get the current state of the board
 function currentBoard() {
