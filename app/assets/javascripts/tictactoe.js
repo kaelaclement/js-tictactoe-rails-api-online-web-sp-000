@@ -124,14 +124,14 @@ function previousGames() {
 }
 
 function makeGameButton(game) {
-  $('#games').append('<button id="gameid-${game.id}">${game.id}</button><br>');
+  $('#games').append('<button id="gameid-' + game.id +'">'+game.id+'</button><br>');
   $("#gameid-" + game.id).on('click', () => reloadGame(game.id));
 }
 
 //reload game....somehow
 function reloadGame(gameID) {
   $.get(`/games/${gameID}`, function (data) {
-    let savedGame = data["data"]["attributes"]["state"]
+    let savedGame = data["data"]["attributes"]["state"];
     $('td[data-x="0"][data-y="0"]').text(savedGame[0]);
     $('td[data-x="1"][data-y="0"]').text(savedGame[1]);
     $('td[data-x="2"][data-y="0"]').text(savedGame[2]);
@@ -142,6 +142,7 @@ function reloadGame(gameID) {
     $('td[data-x="1"][data-y="2"]').text(savedGame[7]);
     $('td[data-x="2"][data-y="2"]').text(savedGame[8]);
     currentGame = gameID;
+    turn = savedGame.join('').length;
   })
 };
 
