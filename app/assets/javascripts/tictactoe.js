@@ -125,8 +125,8 @@ function previousGames() {
 }
 
 function makeGameButton(game) {
-  $('#games').append('<button id="gameid-' + game.id +'">'+game.id+'</button><br>');
-  $("#gameid-" + game.id).on('click', () => reloadGame(game.id));
+  $('#games').append(`<button id="gameid-${game.id}">${+game.id}</button><br>`);
+  $(`#gameid-${game.id}`).on('click', () => reloadGame(game.id));
 }
 
 //reload game....somehow
