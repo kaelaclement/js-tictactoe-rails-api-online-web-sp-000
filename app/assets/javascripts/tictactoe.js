@@ -120,14 +120,14 @@ function previousGames() {
   $.get("/games", (savedGames) => {
     if (savedGames.data.length) {
       savedGames.data.forEach(makeGameButton);
-    }
+    };
   });
-}
+};
 
 function makeGameButton(game) {
   $('#games').append(`<button id="gameid-${game.id}">${+game.id}</button><br>`);
   $(`#gameid-${game.id}`).on('click', () => reloadGame(game.id));
-}
+};
 
 //reload game....somehow
 function reloadGame(gameID) {
@@ -144,7 +144,7 @@ function reloadGame(gameID) {
     $('td[data-x="2"][data-y="2"]').text(savedGame[8]);
     currentGame = gameID;
     turn = savedGame.join('').length;
-  })
+  });
 };
 
 // attach event listeners for gameplay
@@ -171,7 +171,7 @@ function attachListeners() {
     e.preventDefault;
     // get the previous games and display them
     previousGames();
-  })
+  });
 
 };
 
